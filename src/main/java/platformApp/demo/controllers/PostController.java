@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platformApp.demo.core.Requests.CreatePostRequest;
 import platformApp.demo.core.Requests.UpdatePostRequest;
+import platformApp.demo.core.Responses.GetAllPostResponse;
 import platformApp.demo.entites.Post;
 import platformApp.demo.service.PostService;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin
 public class PostController {
 
     private PostService postService;
@@ -21,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> GetAllPosts(@RequestParam Optional<Long> userId){
+    public List<GetAllPostResponse> GetAllPosts(@RequestParam Optional<Long> userId){
         return postService.GetAllPosts(userId);
     }
 

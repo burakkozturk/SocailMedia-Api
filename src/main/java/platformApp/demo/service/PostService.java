@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import platformApp.demo.core.Requests.CreatePostRequest;
 import platformApp.demo.core.Requests.UpdatePostRequest;
+import platformApp.demo.core.Responses.GetAllPostResponse;
 import platformApp.demo.entites.Post;
 import platformApp.demo.entites.User;
 import platformApp.demo.repositories.PostRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @NoArgsConstructor
@@ -28,11 +30,13 @@ public class PostService {
     @Autowired
 
 
-    public List<Post> GetAllPosts(Optional<Long> userId) {
+    public List<GetAllPostResponse> GetAllPosts(Optional<Long> userId) {
+        List<Post> list;
         if(userId.isPresent()){
-            return postRepository.findByUserId(userId.get());
+            list = postRepository.findByUserId(userId.get());
         }
-        return postRepository.findAll();
+        list =  postRepository.findAll();
+        return list.stream().map(p -> new GetAllPostResponse(p)).collect(Collectors.toList());
     }
 
     public Post GetOnePostById(Long postId) {

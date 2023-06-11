@@ -27,10 +27,9 @@ public class Post {
     @Column(name="text", columnDefinition = "text")
     String text;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     User user;
 
 
