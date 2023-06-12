@@ -29,6 +29,9 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
+    public User GetOneUserByName(String userName){
+        return userRepository.findByUserName(userName);
+    }
     public User CreateOneUser(User newUser) {
         return userRepository.save(newUser);
     }
